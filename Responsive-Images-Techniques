@@ -1,0 +1,62 @@
+# Responsive-Images-Techniques
+
+Images are some of the most important pieces of information on the web, but they haven’t been very adaptable at all. Everything about them has been stubbornly fixed: their size, format and crop, all set in single src.
+
+Images have been the number one obstacle to implementing truly adaptable and responsive pages.
+
+<b>Common Solutions</b>
+
+<b>```<picture>```</b><br>
+The ```<picture>``` element offers a declarative approach towards image resource loading. Web developers will no longer need CSS or JavaScript hacks to handle images in responsive designs. And users benefit from natively-optimized image resource loading—especially important for users on slower mobile internet connections.
+
+```<picture>``` element gives web developers more flexibility in specifying image resources.
+
+The most common use of the ```<picture>``` element will be for art direction in responsive designs. Instead of having one image that is scaled up or down based on the viewport width, multiple images can be designed to more appropriately fill the browser viewport.
+
+```
+<picture alt="description">
+  <source src="small.jpg">
+  <source src="medium.jpg" media="(min-width: 40em)">
+  <img src="large.jpg"/>
+</picture>
+```
+
+The picture element is great if you want to serve images with a different shape.However, this solution couples CSS with HTML which is bad for maintenance.
+This solution also doesn’t cover high-definition displays.
+
+<b>SRCSET </b><br>
+Another solution, srcset, has recently been made available natively in some WebKit-based browsers. 
+If you're implementing responsive images (different images in HTML for different situations) and all you are doing is switching between different versions of the same image (the vast majority of usage), all you need is the srcset attribute on the ```<img>```. 
+
+```<img src="fallback.jpg" srcset="small.jpg 640w 1x, small-hd.jpg 640w 2x, large.jpg 1x, large-hd.jpg 2x" alt="…">```
+
+In the simple example above, all we're doing is telling the browser about some images that we have available and what size they are. The browser then does all the work figuring out which one will be best.With <picture> element with explicit sources, the browser has to do exactly what you say and not make choices for itself. 
+This solution also couples CSS with HTML which is bad for maintenance.
+
+<b>Using both picture and SRCSET</b><br>
+The ```<img>``` element has also been updated to be used within ```<picture>``` as the fallback in case a browser does not support the picture element or if no source element tags are matched. Using ```<img>``` within ```<picture>``` is a requirement—if you forget it, no images will show up.
+
+```
+<picture>
+  <source media="(min-width: 800px)"
+          sizes="80vw"
+          srcset="landscape-640.jpg 640w,
+                  landscape-1280.jpg 1280w,
+                  landscape-2560.jpg 2560w">
+  <img src="xxx-160.jpg" alt="lighthouse"
+       sizes="80vw"
+       srcset="lighthouse-160.jpg 160w,
+               lighthouse-320.jpg 320w,
+               lighthouse-640.jpg 640w,
+               lighthouse-1280.jpg 1280w">
+</picture>
+```
+The ```<picture>``` element is currently available Chrome 38.For older browser support,<a href="http://scottjehl.github.io/picturefill/"> you need to polyfill it</a>.
+
+<b>Code Example</b><br>
+<a href="http://googlesamples.github.io/web-fundamentals/samples/media/images/media.html">```<picture>``` element sample for using ```<picture>``` with a polyfill. </a><br>
+For best practice of implementing images on the web , check this <a href="https://developers.google.com/web/fundamentals/media/images/images-in-css">link</a>.<br>
+Refer this <a href="http://www.html5rocks.com/en/tutorials/responsive/picture-element/">link</a> to know more about picture element.<br>
+Refer this <a href="https://css-tricks.com/responsive-images-youre-just-changing-resolutions-use-srcset/">link</a> to know more about srcset.<br>
+
+ 
